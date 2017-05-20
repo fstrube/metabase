@@ -68,8 +68,11 @@
     (let [fingerprint {:field-avg-length field-avg-length-fn,
                        :field-percent-urls field-percent-urls-fn}]
       {:row_count (when calculate-row-count? (u/try-apply table-row-count table))
-       :fields    (for [id new-field-ids]
-                    (extract-field-values (field/Field id) {:id id}))
+       :fields    (for [id new-field-ids
+                        :let [field (field/Field id)]]
+                    (assoc (extract-field-values field {:id id})
+                      :percent-urls (field-percent-urls-fn field)
+                      :avg-length (field-avg-length-fn field)))
        #_(classify/classify-table driver table fingerprint)})))
 
 (defn generic-analyze-table

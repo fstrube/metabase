@@ -3646,3 +3646,20 @@ databaseChangeLog:
             columns:
               - column:
                   name: dashboard_id
+  - changeSet:
+      id: 56
+      author: arthur
+      changes:
+        - addColumn:
+            tableName: metabase_field
+            columns:
+              - column:
+                  name: percent_urls
+                  type: int
+                  remarks: 'What percent of the fields as sampled matched urls'
+                  defaultValueNumeric: 0
+              - column:
+                  name: avg_length
+                  type: int
+                  remarks: 'What percent of the fields as sampled looked like email addresses'
+                  defaultValueNumeric: 0
